@@ -33,14 +33,6 @@ jobs:
     - name: Validate Terraform
       run: terraform validate
 
-    - name: Plan Terraform
-      run: |
-        terraform plan \
-          -var="credentials=${{ secrets.GCP_CREDENTIALS }}" \
-          -var="project_id=${{ secrets.GCP_PROJECT }}" \
-          -var="region=us-west1" \
-          -var="zone=us-west1-a" \
-          -out=tfplan
 
     - name: Apply Terraform
       run: |
