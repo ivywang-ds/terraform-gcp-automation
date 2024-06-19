@@ -1,4 +1,4 @@
-、name: CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -34,11 +34,7 @@ jobs:
       run: terraform validate
 
     - name: Plan Terraform
-      run: terraform plan -out=tfplan
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      run: terraform plan -var="credentials=${{ secrets.GCP_CREDENTIALS }}" -var="project_id=${{ secrets.GCP_PROJECT }}" -var="region=us-central1" -var="zone=us-central1-a" -out=tfplan
 
     - name: Apply Terraform
-      run: terraform apply -auto-approve tfplan
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      run: terraform apply -var="credentials=${{ secrets.GCP_CREDENTIALS }}" -var="project_id=${{ secrets.GCP_PROJECT }}" -var="region=us-central1" -var="zone=us-central1-a" -auto-approve tfplan
